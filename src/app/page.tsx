@@ -3,14 +3,32 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Calendar, ExternalLink } from "lucide-react";
+import { Mail, MapPin, Calendar, ExternalLink } from "lucide-react";
+import { useLanguage } from "@/hooks/use-language";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 export default function Home() {
+  const { t, language, isLoaded } = useLanguage();
+
+  // Mostrar un loading mientras se carga el idioma
+  if (!isLoaded) {
+    return <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+  <p className="mt-4">{t.loading}</p>
+      </div>
+    </div>;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header con foto principal */}
       <header className="relative bg-gradient-to-r from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4 py-16 md:py-24">
+          {/* Selector de idioma */}
+          <div className="absolute top-4 right-4">
+            <LanguageSelector />
+          </div>
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-shrink-0">
               <img
@@ -20,12 +38,13 @@ export default function Home() {
               />
             </div>
             <div className="text-center md:text-left flex-1">
-              <h1 className="text-5xl md:text-7xl font-bold mb-4">Òscar Simón Gámez</h1>
-              <h2 className="text-2xl md:text-3xl text-muted-foreground mb-6">Fisioterapeuta y Dietista-Nutricionista</h2>
+              <h1 className="text-5xl md:text-7xl font-bold mb-4">{t.name}</h1>
+              <h2 className="text-2xl md:text-3xl text-muted-foreground mb-4">{t.title}</h2>
+              <p className="text-lg text-muted-foreground mb-6 max-w-2xl">{t.headerDescription}</p>
               <div className="flex justify-center md:justify-start">
                 <Button variant="outline" size="lg" className="gap-2">
                   <ExternalLink className="w-4 h-4" />
-                  LinkedIn
+                  {t.linkedin}
                 </Button>
               </div>
             </div>
@@ -41,24 +60,24 @@ export default function Home() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MapPin className="w-5 h-5" />
-                Idiomas
+                {t.languages}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-lg font-medium">Español</span>
-                <Badge>Nativo</Badge>
+                <span className="text-lg font-medium">{t.spanish}</span>
+                <Badge>{t.native}</Badge>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-lg font-medium">Catalán</span>
-                <Badge>Nativo</Badge>
+                <span className="text-lg font-medium">{t.catalan}</span>
+                <Badge>{t.native}</Badge>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-lg font-medium">Inglés</span>
+                <span className="text-lg font-medium">{t.english}</span>
                 <Badge variant="secondary">B2 (Trinity College)</Badge>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-lg font-medium">Alemán</span>
+                <span className="text-lg font-medium">{t.german}</span>
                 <Badge variant="secondary">C1 (Goethe Institut)</Badge>
               </div>
             </CardContent>
@@ -69,31 +88,17 @@ export default function Home() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="w-5 h-5" />
-                Sobre mí
+                {t.aboutMe}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-3">
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                  <span className="text-base">Busco aprender de compañeros con más experiencia</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                  <span className="text-base">Ambición por el rendimiento físico</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                  <span className="text-base">Pasión por el estudio autodidacta</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                  <span className="text-base">Facilidad de adaptación a nuevos equipos de trabajo</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                  <span className="text-base">Hábitos de vida saludables</span>
-                </li>
+                {t.aboutPoints.map((point, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                    <span className="text-base">{point}</span>
+                  </li>
+                ))}
               </ul>
             </CardContent>
           </Card>
@@ -101,19 +106,19 @@ export default function Home() {
 
         {/* Sección de Formación Académica */}
         <section>
-          <h2 className="text-4xl font-bold mb-8 text-center">Formación Académica</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center">{t.academicTraining}</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
-                  Grado en Fisioterapia
+                  {t.physiotherapyDegree}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Universitat de Lleida</p>
+                <p className="text-base text-muted-foreground mb-2">{t.university}</p>
                 <div className="flex items-center gap-2 text-base text-muted-foreground">
-                  <span>09/2020 - 07/2025</span>
+                  <span>{t.duration1}</span>
                 </div>
               </CardContent>
             </Card>
@@ -122,13 +127,13 @@ export default function Home() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
-                  Grado en Nutrición Humana y Dietética
+                  {t.nutritionDegree}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Universitat de Lleida</p>
+                <p className="text-base text-muted-foreground mb-2">{t.university}</p>
                 <div className="flex items-center gap-2 text-base text-muted-foreground">
-                  <span>09/2020 - 07/2025</span>
+                  <span>{t.duration1}</span>
                 </div>
               </CardContent>
             </Card>
@@ -146,8 +151,60 @@ export default function Home() {
 
         {/* Sección de Experiencia Laboral */}
         <section>
-          <h2 className="text-4xl font-bold mb-8 text-center">Experiencia Laboral</h2>
-          <div className="space-y-6">
+          <h2 className="text-4xl font-bold mb-8 text-center">{t.workExperience}</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Experiencias ordenadas cronológicamente, más recientes primero */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calendar className="w-5 h-5" />
+                  Cosnou
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-lg mb-2">{t.workPositions.cosnou}</p>
+                <div className="flex items-center gap-2 text-base mb-2">
+                  <span className="text-muted-foreground">09/2025</span>
+                  <span>-</span>
+                  <span className="text-blue-500 font-medium">{t.current}</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calendar className="w-5 h-5" />
+                  {t.workPositions.domiciliary}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-lg mb-2">{t.workPositions.domiciliaryDescription}</p>
+                <div className="flex items-center gap-2 text-base mb-2">
+                  <span className="text-muted-foreground">09/2025</span>
+                  <span>-</span>
+                  <span className="text-blue-500 font-medium">{t.current}</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calendar className="w-5 h-5" />
+                  Club de Futbol Vilanova del Camí
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-lg mb-2">{t.workPositions.vilanova}</p>
+                <div className="flex items-center gap-2 text-base mb-2">
+                  <span className="text-muted-foreground">08/2025</span>
+                  <span>-</span>
+                  <span className="text-blue-500 font-medium">{t.current}</span>
+                </div>
+              </CardContent>
+            </Card>
+
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -156,7 +213,7 @@ export default function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-lg mb-2">Fisioterapeuta rehabilitador de accidentes laborales</p>
+                <p className="text-lg mb-2">{t.workPositions.fremap}</p>
                 <div className="flex items-center gap-2 text-base text-muted-foreground mb-2">
                   <span>07/2025 - 08/2025</span>
                 </div>
@@ -171,7 +228,7 @@ export default function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-lg mb-2">Fisioterapia deportiva</p>
+                <p className="text-lg mb-2">{t.workPositions.igualada}</p>
                 <div className="flex items-center gap-2 text-base text-muted-foreground mb-2">
                   <span>08/2025</span>
                 </div>
@@ -182,56 +239,11 @@ export default function Home() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
-                  Club de Futbol Vilanova del Camí
+                  {t.practiceTitles.futsal}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-lg mb-2">Fisioterapia deportiva</p>
-                <div className="flex items-center gap-2 text-base text-muted-foreground mb-2">
-                  <span>08/2025 - Actualidad</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
-                  Cosnou
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-lg mb-2">Fisioterapia en clínica privada</p>
-                <div className="flex items-center gap-2 text-base text-muted-foreground mb-2">
-                  <span>09/2025 - Actualidad</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
-                  Fisioterapia Domiciliaria
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-lg mb-2">Rehabilitación en casa</p>
-                <div className="flex items-center gap-2 text-base text-muted-foreground mb-2">
-                  <span>09/2025 - Actualidad</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
-                  Federación Catalana de Fútbol Sala
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-lg mb-2">Árbitro de fútbol sala</p>
+                <p className="text-lg mb-2">{t.workPositions.futsal}</p>
                 <div className="flex items-center gap-2 text-base text-muted-foreground mb-2">
                   <span>01/2020 - 02/2022</span>
                 </div>
@@ -242,11 +254,11 @@ export default function Home() {
 
         {/* Sección de Certificados y Seminarios */}
         <section>
-          <h2 className="text-4xl font-bold mb-8 text-center">Certificados y Seminarios</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center">{t.certificates}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Google Data Analytics</CardTitle>
+                <CardTitle className="text-lg">{t.certificatesTitles.googleAnalytics}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-2">Google - Coursera</p>
@@ -256,14 +268,14 @@ export default function Home() {
                   <span>07/2022 - 09/2022</span>
                 </div>
                 <div className="text-xs text-primary font-medium">
-                  100% en inglés
+                  {t.certificatesNotes?.allEnglish}
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Punción Seca y Tratamiento Conservador del Síndrome del Dolor Miofascial</CardTitle>
+                <CardTitle className="text-lg">{t.certificatesTitles.dryNeedling}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-2">Fisiofocus</p>
@@ -277,10 +289,10 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Abordaje del Dolor de Hombro con el Manguito de los Rotadores</CardTitle>
+                <CardTitle className="text-lg">{t.certificatesTitles.shoulder}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-2">Consorci Sanitari de l'Anoia</p>
+                <p className="text-sm text-muted-foreground mb-2">Gesundheitskonsortium von Anoia</p>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <span>5 h</span>
                   <span>•</span>
@@ -302,14 +314,14 @@ export default function Home() {
 
         {/* Sección de Prácticas Universitarias */}
         <section>
-          <h2 className="text-4xl font-bold mb-8 text-center">Prácticas Universitarias</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center">{t.universityPractices}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Hospital Universitario de Igualada</CardTitle>
+                <CardTitle className="text-lg">{t.practiceTitles.hospitalIgualada1}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Especialización en rehabilitación postoperatoria y diagnóstico por imagen</p>
+                <p className="text-base text-muted-foreground mb-2">{t.practices.hospitalIgualada1}</p>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>105 h</span>
                   <span>•</span>
@@ -320,10 +332,10 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Residencia Amavir</CardTitle>
+                <CardTitle className="text-lg">{t.practiceTitles.amavir}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Especialización en fisioterapia geriátrica</p>
+                <p className="text-base text-muted-foreground mb-2">{t.practices.amavir}</p>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>105 h</span>
                   <span>•</span>
@@ -334,10 +346,10 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Mutua Asistencial Anoia</CardTitle>
+                <CardTitle className="text-lg">{t.practiceTitles.anoia}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Especialización en rehabilitación y drenaje linfático</p>
+                <p className="text-base text-muted-foreground mb-2">{t.practices.anoia}</p>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>105 h</span>
                   <span>•</span>
@@ -348,10 +360,10 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Centro Privado Gessamí</CardTitle>
+                <CardTitle className="text-lg">{t.practiceTitles.gessami}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Especialización en fisioterapia deportiva y ecografía musculoesquelética</p>
+                <p className="text-base text-muted-foreground mb-2">{t.practices.gessami}</p>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>105 h</span>
                   <span>•</span>
@@ -362,10 +374,10 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Mutua Mips</CardTitle>
+                <CardTitle className="text-lg">{t.practiceTitles.mips}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Especialización en fisioterapia invasiva y rehabilitación</p>
+                <p className="text-base text-muted-foreground mb-2">{t.practices.mips}</p>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>105 h</span>
                   <span>•</span>
@@ -376,10 +388,10 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Hospital Universitario de Igualada</CardTitle>
+                <CardTitle className="text-lg">{t.practiceTitles.hospitalIgualada2}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Especialización en fisioterapia respiratoria y cardíaca en pediatría, geriatría y unidad de cuidados intensivos</p>
+                <p className="text-base text-muted-foreground mb-2">{t.practices.hospitalIgualada2}</p>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>105 h</span>
                   <span>•</span>
@@ -390,10 +402,10 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Hospital Psiquiátrico Santa Maria de Lleida</CardTitle>
+                <CardTitle className="text-lg">{t.practiceTitles.psychiatric}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Especialización en trastornos de la conducta alimentaria, con un enfoque basado en la terapia cognitivo-conductual e incorporación del ejercicio terapéutico como tratamiento</p>
+                <p className="text-base text-muted-foreground mb-2">{t.practices.psychiatric}</p>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>350 h</span>
                   <span>•</span>
@@ -404,10 +416,10 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Industria Alimentaria Grupo Meritem</CardTitle>
+                <CardTitle className="text-lg">{t.practiceTitles.meritem}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-2">Especialización en seguridad y calidad alimentaria</p>
+                <p className="text-base text-muted-foreground mb-2">{t.practices.meritem}</p>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>350 h</span>
                   <span>•</span>
@@ -420,7 +432,7 @@ export default function Home() {
 
         {/* Sección de Contacto */}
         <section>
-          <h2 className="text-4xl font-bold mb-8 text-center">Contacto</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center">{t.contact}</h2>
           <Card className="max-w-2xl mx-auto">
             <CardContent className="pt-6">
               <div className="space-y-4">
@@ -430,15 +442,10 @@ export default function Home() {
                     ossimon02@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-primary" />
-                  <a href="tel:+34628091638" className="hover:text-primary transition-colors text-base">
-                    +34 628 091 638
-                  </a>
-                </div>
+                {/* Phone removed for privacy */}
                 <div className="flex items-center gap-3">
                   <MapPin className="w-5 h-5 text-primary" />
-                  <span className="text-base">Igualada, España</span>
+                  <span className="text-base">{t.location}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <ExternalLink className="w-5 h-5 text-primary" />
@@ -448,7 +455,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="hover:text-primary transition-colors text-base"
                   >
-                    LinkedIn
+                    {t.linkedin}
                   </a>
                 </div>
               </div>
@@ -460,7 +467,7 @@ export default function Home() {
       <footer className="bg-muted/50 py-8 mt-16">
         <div className="container mx-auto px-4 text-center">
           <p className="text-muted-foreground">
-            © {new Date().getFullYear()} Òscar Simón Gámez. Todos los derechos reservados.
+            © {new Date().getFullYear()} Òscar Simón Gámez. {t.allRightsReserved}
           </p>
         </div>
       </footer>
