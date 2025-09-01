@@ -27,7 +27,7 @@ export const translations = {
     // About me
     aboutPoints: [
       "Analítico y perfeccionista en mi trabajo",
-      "Ambición por el rendimiento físico",
+      "Más de 8 años de experiencia en entrenamiento de fuerza",
       "Pasión por el estudio autodidacta",
       "Facilidad de adaptación a nuevos equipos de trabajo",
       "Hábitos de vida saludables"
@@ -121,7 +121,7 @@ export const translations = {
     // About me
     aboutPoints: [
       "Analytisch und perfektionistisch in meiner Arbeit",
-      "Ehrgeiz für körperliche Leistung",
+      "Mehr als 8 Jahre Erfahrung im Krafttraining",
       "Leidenschaft für autodidaktisches Lernen",
       "Anpassungsfähigkeit an neue Arbeitsteams",
       "Gesunde Lebensgewohnheiten"
@@ -143,6 +143,9 @@ export const translations = {
       fremap: "Rehabilitationsphysiotherapeut für Arbeitsunfälle",
       igualada: "Sportphysiotherapie",
       futsal: "Futsal-Schiedsrichter"
+    },
+    workPositionsDescriptions: {
+      domiciliary: "Rehabilitation abhängiger Personen",
     },
     
     // Certificates
