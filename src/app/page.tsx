@@ -42,9 +42,11 @@ export default function Home() {
               <h2 className="text-2xl md:text-3xl text-muted-foreground mb-4">{t.title}</h2>
               <p className="text-lg text-muted-foreground mb-6 max-w-2xl">{t.headerDescription}</p>
               <div className="flex justify-center md:justify-start">
-                <Button variant="outline" size="lg" className="gap-2">
-                  <ExternalLink className="w-4 h-4" />
-                  {t.linkedin}
+                <Button variant="outline" size="lg" className="gap-2" asChild>
+                  <a href="https://www.linkedin.com/in/%C3%B2scar-sim%C3%B3n-g%C3%A1mez-b024aa237/" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-4 h-4" />
+                    {t.linkedin}
+                  </a>
                 </Button>
               </div>
             </div>
@@ -192,7 +194,7 @@ export default function Home() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
-                  Club de Futbol Vilanova del Camí
+                  {language === 'de' ? 'Vilanova del Camí Fußballverein' : 'Club de Futbol Vilanova del Camí'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -224,7 +226,7 @@ export default function Home() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
-                  Club de Futbol Igualada
+                  {language === 'de' ? 'Igualada Fußballverein' : 'Club de Futbol Igualada'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
