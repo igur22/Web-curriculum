@@ -263,7 +263,7 @@ export default function Home() {
                 <CardTitle className="text-lg">{t.certificatesTitles.googleAnalytics}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-2">Google - Coursera</p>
+                <p className="text-sm text-muted-foreground mb-2">{t.certificatesProviders.googleAnalytics}</p>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                   <span>100 h</span>
                   <span>•</span>
@@ -280,7 +280,7 @@ export default function Home() {
                 <CardTitle className="text-lg">{t.certificatesTitles.dryNeedling}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-2">Fisiofocus</p>
+                <p className="text-sm text-muted-foreground mb-2">{t.certificatesProviders.dryNeedling}</p>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <span>60 h</span>
                   <span>•</span>
@@ -294,7 +294,7 @@ export default function Home() {
                 <CardTitle className="text-lg">{t.certificatesTitles.shoulder}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-2">Gesundheitskonsortium von Anoia</p>
+                <p className="text-sm text-muted-foreground mb-2">{t.certificatesProviders.shoulder}</p>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <span>5 h</span>
                   <span>•</span>

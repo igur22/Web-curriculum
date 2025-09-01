@@ -60,6 +60,11 @@ export const translations = {
       dryNeedling: "Punción Seca y Tratamiento Conservador del Síndrome del Dolor Miofascial",
       shoulder: "Abordaje del Dolor de Hombro con el Manguito de los Rotadores"
     },
+    certificatesProviders: {
+      googleAnalytics: "Google - Coursera",
+      dryNeedling: "Fisiofocus",
+      shoulder: "Consorci Sanitari de l'Anoia"
+    },
     certificatesNotes: {
       allEnglish: "100% en inglés",
     },
@@ -153,6 +158,11 @@ export const translations = {
       googleAnalytics: "Google Data Analytics",
       dryNeedling: "Dry Needling und konservative Behandlung des myofaszialen Schmerzsyndroms",
       shoulder: "Rotatorenmanschette – Ansatz bei Schulterschmerzen"
+    },
+    certificatesProviders: {
+      googleAnalytics: "Google - Coursera",
+      dryNeedling: "Fisiofocus",
+      shoulder: "Gesundheitskonsortium von Anoia"
     },
     certificatesNotes: {
       allEnglish: "100% auf Englisch",
